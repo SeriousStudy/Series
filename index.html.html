@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serious Study Series | Accountancy</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1a2a3a, #05080f 75%);
+      color: #fff;
+      padding: 40px 15px 140px;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    body.exam {
+      background: #000;
+      color: #e5e5e5;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 26px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+
+    .nav-title {
+      font-weight: 800;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #00ffd5, #00aaff, #8a7cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+    }
+
+    .nav-buttons button {
+      margin-left: 10px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #00ffd5, #00aaff);
+      color: #000;
+    }
+
+    body.exam .nav-buttons button {
+      background: #222;
+      color: #fff;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    header h1 {
+      font-size: clamp(2.8rem, 6vw, 4.2rem);
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin: 0;
+      background: linear-gradient(90deg, #00ffd5, #00aaff, #8a7cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      margin-top: 14px;
+      opacity: 0.85;
+      font-weight: 300;
+    }
+
+    /* ===== DASHBOARD ===== */
+    .dashboard {
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border-radius: 22px;
+      padding: 26px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+
+    body.exam .card { background: #111; }
+
+    .progress-bar {
+      height: 14px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 14px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #00ffd5, #00aaff);
+      transition: width 0.4s ease;
+    }
+
+    .streak {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #00ffd5;
+    }
+
+    /* ===== MAIN CARD ===== */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 30px;
+      padding: 40px 34px 60px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 30px 110px rgba(0,0,0,0.75);
+    }
+
+    body.exam .container { background: #0a0a0a; }
+
+    .section { margin-bottom: 70px; }
+
+    .section h2 {
+      margin-bottom: 18px;
+      font-size: 1.7rem;
+      color: #00ffd5;
+    }
+
+    /* ===== TASK ===== */
+    .task {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    body.exam .task { background: #111; border-color: #222; }
+
+    .task.locked {
+      opacity: 0.4;
+    }
+
+    .task.done {
+      background: linear-gradient(145deg, rgba(0,255,180,0.22), rgba(0,255,180,0.06));
+      border-color: rgba(0,255,180,0.45);
+    }
+
+    .date { font-weight: 600; }
+
+    .badge {
+      margin-left: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(0,170,255,0.25);
+      border: 1px solid rgba(0,170,255,0.4);
+    }
+
+    .task button {
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background: linear-gradient(135deg, #00ffd5, #00aaff);
+      color: #000;
+    }
+
+    .task button:disabled {
+      background: #333;
+      color: #777;
+      cursor: not-allowed;
+    }
+
+    /* ===== CELEBRATION ===== */
+    .celebrate {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .celebrate-box {
+      background: #0f172a;
+      padding: 44px;
+      border-radius: 28px;
+      text-align: center;
+    }
+
+    /* ===== CERTIFICATE ===== */
+    .certificate {
+      display: none;
+      padding: 46px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, #ffd36a, #ff9f1c);
+      color: #1a1200;
+      text-align: center;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      margin-top: 100px;
+      text-align: center;
+      opacity: 0.85;
+    }
+
+    /* ===== MODALS ===== */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal {
+      max-width: 800px;
+      background: #0f172a;
+      padding: 40px;
+      border-radius: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-title">Serious Study Series</div>
+  <div class="nav-buttons">
+    <button onclick="toggleExam()">Exam Mode</button>
+    <button onclick="openHelp()">Help</button>
+    <button onclick="openAbout()">About</button>
+  </div>
+</nav>
+
+<header>
+  <h1>SERIOUS STUDY SERIES</h1>
+  <p>Accountancy • Consistency • Discipline • Execution</p>
+</header>
+
+<section class="dashboard">
+  <div class="card">
+    <h3>Overall Progress</h3>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+  <div class="card">
+    <h3>Daily Streak</h3>
+    <div class="streak" id="streak">0 🔥</div>
+  </div>
+</section>
+
+<div class="container">
+
+  <div class="section">
+    <h2>Daily Plan</h2>
+    <div id="taskContainer"></div>
+  </div>
+
+  <div class="certificate" id="certificate">
+    <h2>Certificate of Discipline</h2>
+    <p>This is to certify that</p>
+    <input id="certName" placeholder="Enter your name" />
+    <p>has successfully completed the <strong>Serious Study Series – Accountancy</strong>.</p>
+    <button onclick="window.print()">Download Certificate (PDF)</button>
+  </div>
+
+</div>
+
+<div class="footer">Hard work will pay off soon.</div>
+
+<div class="celebrate" id="celebrate">
+  <div class="celebrate-box">
+    <h2>🎉 Congratulations!</h2>
+    <p>Consistency is the key. Keep going.</p>
+    <button onclick="closeCelebrate()">Continue</button>
+  </div>
+</div>
+
+<div class="overlay" id="helpOverlay"><div class="modal"><h2>Help</h2><p>Complete tasks honestly. Progress is auto-saved. Future dates unlock automatically.</p><button onclick="closeHelp()">Back</button></div></div>
+<div class="overlay" id="aboutOverlay"><div class="modal"><h2>About</h2><p>This website is made by <strong>Piyush Pandey</strong> for disciplined Accountancy preparation.</p><button onclick="closeAbout()">Back</button></div></div>
+
+<script>
+  const today=new Date().getDate();
+  function toggleExam(){document.body.classList.toggle('exam');}
+  function openHelp(){helpOverlay.style.display='flex';}
+  function closeHelp(){helpOverlay.style.display='none';}
+  function openAbout(){aboutOverlay.style.display='flex';}
+  function closeAbout(){aboutOverlay.style.display='none';}
+  function closeCelebrate(){celebrate.style.display='none';}
+
+  const tasks=[];
+  for(let d=12;d<=31;d++){
+    tasks.push({id:d,work:d<15?'Revision ∞':'Sample Paper 📄 / day',badge:d<15?'REV':'1× / DAY'});
+  }
+
+  const container=document.getElementById('taskContainer');
+
+  function loadTasks(){
+    container.innerHTML=''; let completed=0;
+    tasks.forEach(t=>{
+      const done=localStorage.getItem('task_'+t.id)==='done';
+      if(done) completed++;
+      const locked=t.id>today;
+      const div=document.createElement('div');
+      div.className='task'+(done?' done':'')+(locked?' locked':'');
+      div.innerHTML=`<div><div class='date'>📅 Date ${t.id} <span class='badge'>${t.badge}</span></div><div class='work'>${t.work}</div></div>`;
+      const btn=document.createElement('button');
+      btn.textContent=done?'Completed ✔':locked?'Locked':'Mark Done';
+      btn.disabled=done||locked;
+      btn.onclick=()=>{localStorage.setItem('task_'+t.id,'done');celebrate.style.display='flex';loadTasks();};
+      div.appendChild(btn);container.appendChild(div);
+    });
+
+    const percent=Math.round((completed/tasks.length)*100);
+    progressFill.style.width=percent+'%';
+    streak.textContent=completed+' 🔥';
+    if(completed===tasks.length) certificate.style.display='block';
+  }
+
+  loadTasks();
+</script>
+
+</body>
+</html>
